@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Md. Manzum Rahman — Cadet, Coder & Builder. Portfolio of projects across web, games, CV, and networking."/>
+  <title>Manzum Rahman</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+  /* ═══════════════════════════════════════
+     TOKENS
+  ═══════════════════════════════════════ */
+  :root {
+    --black:   #07070a;
+    --black2:  #0d0d12;
+    --black3:  #111118;
+    --card:    #0f0f16;
+    --card2:   #141420;
+    --border:  rgba(255,255,255,.06);
+    --border2: rgba(255,255,255,.03);
+
+    --red:     #E50914;
+    --red2:    #c4070f;
+    --red-lo:  rgba(229,9,20,.12);
+    --red-glo: rgba(229,9,20,.22);
+
+    --white:   #eeeeee;
+    --g1:      #b8b8c0;
+    --g2:      #72727e;
+    --g3:      #363642;
+
+    --display: 'Bebas Neue', sans-serif;
+    --serif:   'Instrument Serif', Georgia, serif;
+    --sans:    'DM Sans', sans-serif;
+    --mono:    'JetBrains Mono', monospace;
+
+    --nav:  68px;
+    --wrap: 1180px;
+    --px:   clamp(18px, 5vw, 64px);
+  }
+
+  /* ═══════════════════════════════════════
+     BASE
+  ═══════════════════════════════════════ */
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--black);
+    color:var(--g1);
+    font-family:var(--sans);
+    font-size:15px;
+    line-height:1.75;
+    overflow-x:hidden;
+    cursor:none;
+  }
+  a{text-decoration:none;color:inherit}
+  ::selection{background:var(--red);color:#fff}
+  ::-webkit-scrollbar{width:4px}
+  ::-webkit-scrollbar-track{background:var(--black)}
+  ::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px}
+
+  /* grain overlay */
+  body::after{
+    content:'';
+    position:fixed;inset:0;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 300 300' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+    opacity:.028;pointer-events:none;z-index:1000;
+  }
+
+  /* ─ cursor */
+  #cd{position:fixed;width:7px;height:7px;background:var(--red);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s}
+  #cr{position:fixed;width:32px;height:32px;border:1.5px solid rgba(229,9,20,.45);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .28s,height .28s,border-color .28s}
+  .cursor-grow #cr{width:52px;height:52px;border-color:var(--red)}
+
+  /* ═══════════════════════════════════════
+     LAYOUT UTILS
+  ═══════════════════════════════════════ */
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 var(--px)}
+  section{padding:96px 0;position:relative;z-index:2}
+
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--mono);font-size:.65rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--red);margin-bottom:16px;
+  }
+  .eyebrow::before{content:'';display:block;width:26px;height:1px;background:var(--red)}
+
+  .h2{
+    font-family:var(--display);
+    font-size:clamp(2.6rem,5.5vw,4.2rem);
+    letter-spacing:.06em;color:var(--white);line-height:.95;
+    margin-bottom:18px;
+  }
+  .h2 em{color:var(--red);font-style:normal}
+
+  .sub{font-size:.92rem;color:var(--g2);max-width:500px;line-height:1.85;margin-bottom:52px}
+
+  .ghost{
+    position:absolute;right:var(--px);top:72px;
+    font-family:var(--display);font-size:clamp(7rem,16vw,13rem);
+    color:rgba(255,255,255,.022);line-height:1;pointer-events:none;user-select:none;
+    letter-spacing:.06em;
+  }
+
+  /* ─ hr */
+  .hr{width:100%;height:1px;border:none;
+    background:linear-gradient(90deg,var(--red) 0%,rgba(229,9,20,.28) 35%,transparent 80%)}
+
+  /* ─ btn */
+  .btn-solid{
+    display:inline-flex;align-items:center;gap:8px;
+    background:var(--red);color:#fff;padding:12px 28px;
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+    border-radius:2px;border:1.5px solid var(--red);
+    transition:background .2s,box-shadow .25s,transform .18s;cursor:none;
+  }
+  .btn-solid:hover{background:var(--red2);box-shadow:0 0 32px var(--red-glo);transform:translateY(-2px)}
+
+  .btn-outline{
+    display:inline-flex;align-items:center;gap:8px;
+    background:transparent;color:var(--g1);padding:12px 28px;
+    font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;
+    border-radius:2px;border:1.5px solid var(--border);
+    transition:border-color .2s,color .2s,transform .18s;cursor:none;
+  }
+  .btn-outline:hover{border-color:var(--red);color:var(--red);transform:translateY(-2px)}
+
+  /* ─ reveal */
+  .rv{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease}
+  .rv.in{opacity:1;transform:none}
+
+  /* ═══════════════════════════════════════
+     NAV
+  ═══════════════════════════════════════ */
+  nav{
+    position:sticky;top:0;z-index:600;
+    height:var(--nav);
+    background:rgba(7,7,10,.86);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border-bottom:1px solid var(--border);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:0 var(--px);
+    transition:border-color .4s;
+  }
+  nav.scrolled{border-bottom-color:rgba(229,9,20,.18)}
+
+  .logo{
+    font-family:var(--display);font-size:1.45rem;letter-spacing:.14em;color:var(--white);
+    display:flex;align-items:baseline;gap:1px;
+  }
+  .logo-dot{color:var(--red);line-height:1}
+
+  .nav-links{list-style:none;display:flex;gap:clamp(20px,3vw,42px)}
+  .nav-links a{
+    font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--g2);position:relative;transition:color .22s;cursor:none;
+  }
+  .nav-links a::after{
+    content:'';position:absolute;bottom:-4px;left:0;
+    width:0;height:1.5px;background:var(--red);transition:width .28s ease;
+  }
+  .nav-links a:hover{color:var(--white)}
+  .nav-links a:hover::after{width:100%}
+  .nav-links a.active{color:var(--red)}
+  .nav-links a.active::after{width:100%}
+
+  /* hamburger */
+  .ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:none;padding:4px}
+  .ham span{display:block;width:20px;height:1.5px;background:var(--g1);transition:all .25s;border-radius:1px}
+  .ham.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+  .ham.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+  .ham.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+  .drawer{
+    display:none;position:fixed;top:var(--nav);left:0;right:0;
+    background:rgba(9,9,13,.97);backdrop-filter:blur(24px);
+    border-bottom:1px solid var(--border);padding:28px var(--px) 34px;z-index:590;
+  }
+  .drawer.open{display:block}
+  .drawer ul{list-style:none;display:flex;flex-direction:column;gap:18px}
+  .drawer a{font-family:var(--mono);font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--g2);cursor:none;transition:color .2s}
+  .drawer a:hover{color:var(--red)}
+
+  /* ═══════════════════════════════════════
+     HERO
+  ═══════════════════════════════════════ */
+  #hero{
+    min-height:calc(100vh - var(--nav));
+    display:flex;align-items:center;
+    padding:0;overflow:hidden;position:relative;
+  }
+
+  /* diagonal grid bg */
+  #hero::before{
+    content:'';position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.016) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.016) 1px,transparent 1px);
+    background-size:72px 72px;
+    mask-image:radial-gradient(ellipse 75% 90% at 70% 50%,black 20%,transparent 80%);
+    pointer-events:none;
+  }
+
+  /* red sweep accent */
+  #hero::after{
+    content:'';position:absolute;
+    right:-8%;top:-15%;
+    width:58vw;height:140%;
+    background:linear-gradient(148deg,transparent 42%,rgba(229,9,20,.035) 42%,rgba(229,9,20,.06) 58%,transparent 58%);
+    pointer-events:none;
+  }
+
+  .hero-inner{
+    padding:72px 0;
+    position:relative;z-index:2;
+    display:grid;
+    grid-template-columns:1fr auto;
+    gap:60px;align-items:center;
+    width:100%;
+  }
+
+  .hero-left{}
+
+  .hero-kicker{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--g2);margin-bottom:20px;
+    animation:fadeUp .55s ease both;
+  }
+  .hero-kicker .pip{
+    display:inline-block;width:7px;height:7px;background:var(--red);border-radius:50%;
+    animation:blink 2.6s ease-in-out infinite;
+  }
+  @keyframes blink{0%,100%{box-shadow:0 0 0 0 var(--red-lo)}50%{box-shadow:0 0 0 7px transparent}}
+
+  .hero-name{
+    font-family:var(--display);
+    font-size:clamp(5rem,14vw,10.5rem);
+    letter-spacing:.04em;color:var(--white);
+    line-height:.92;margin-bottom:10px;
+    animation:fadeUp .6s .07s ease both;
+  }
+  .hero-name .outline{
+    display:block;
+    color:transparent;
+    -webkit-text-stroke:1.5px rgba(255,255,255,.15);
+  }
+
+  .hero-tagline{
+    font-family:var(--serif);font-style:italic;
+    font-size:clamp(1.05rem,2.5vw,1.5rem);
+    color:var(--g2);margin-bottom:30px;
+    animation:fadeUp .6s .15s ease both;
+  }
+  .hero-tagline strong{color:var(--red);font-style:normal;font-family:var(--sans);font-weight:500}
+
+  .hero-roles{
+    display:flex;flex-wrap:wrap;gap:8px;margin-bottom:38px;
+    animation:fadeUp .6s .22s ease both;
+  }
+  .role-tag{
+    font-family:var(--mono);font-size:.67rem;letter-spacing:.1em;text-transform:uppercase;
+    padding:5px 13px;border:1px solid var(--border);border-radius:2px;
+    color:var(--g2);background:rgba(255,255,255,.025);
+    transition:border-color .2s,color .2s;
+  }
+  .role-tag.red{border-color:rgba(229,9,20,.4);color:var(--red);background:var(--red-lo)}
+
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;animation:fadeUp .6s .3s ease both}
+
+  .hero-scroll{
+    margin-top:56px;display:flex;align-items:center;gap:14px;
+    animation:fadeUp .6s .42s ease both;
+  }
+  .scroll-line{width:44px;height:1px;background:linear-gradient(90deg,var(--red),transparent)}
+  .scroll-txt{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--g3)}
+
+  /* right side avatar placeholder */
+  .hero-right{flex-shrink:0;position:relative}
+  .hero-img{
+    width:clamp(180px,22vw,280px);
+    aspect-ratio:4/5;border-radius:3px;
+    background:var(--card2);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+    position:relative;
+    animation:fadeUp .65s .1s ease both;
+  }
+  .hero-img img{width:100%;height:100%;object-fit:cover}
+  .hero-img-placeholder{width:70px;height:70px;fill:var(--card2)}
+  .hero-img::before{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(to bottom,transparent 50%,rgba(229,9,20,.08));
+    z-index:1;pointer-events:none;
+  }
+  .hero-img-frame{
+    position:absolute;bottom:-10px;right:-10px;
+    width:70%;height:70%;
+    border:1.5px solid rgba(229,9,20,.25);border-radius:3px;z-index:-1;
+  }
+
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(26px)}
+    to{opacity:1;transform:none}
+  }
+
+  /* ═══════════════════════════════════════
+     STATS BAR
+  ═══════════════════════════════════════ */
+  #stats{
+    padding:0;background:var(--black2);
+    border-top:1px solid var(--border);border-bottom:1px solid var(--border);
+    z-index:2;position:relative;
+  }
+  .stats-inner{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    divide-x:1px solid var(--border);
+  }
+  .stat{
+    padding:32px 28px;border-right:1px solid var(--border);
+    display:flex;flex-direction:column;align-items:flex-start;
+    transition:background .25s;
+  }
+  .stat:last-child{border-right:none}
+  .stat:hover{background:rgba(229,9,20,.03)}
+
+  .stat-num{
+    font-family:var(--display);font-size:clamp(2.2rem,4vw,3.2rem);
+    letter-spacing:.06em;color:var(--white);line-height:1;margin-bottom:5px;
+  }
+  .stat-num span{color:var(--red)}
+  .stat-desc{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--g2)}
+
+  /* ═══════════════════════════════════════
+     ABOUT
+  ═══════════════════════════════════════ */
+  #about{background:var(--black3)}
+
+  .about-grid{
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:72px;align-items:start;
+  }
+
+  .about-text p{
+    font-size:.94rem;color:var(--g2);line-height:1.92;margin-bottom:16px;
+  }
+  .about-text p:last-child{margin-bottom:0}
+  .about-text strong{color:var(--white);font-weight:500}
+  .about-text em{color:var(--red);font-style:italic}
+
+  .about-right{display:flex;flex-direction:column;gap:8px}
+  .info-card{
+    background:var(--card);border:1px solid var(--border);border-radius:2px;
+    padding:16px 18px;transition:border-color .25s,background .25s;
+  }
+  .info-card:hover{border-color:rgba(229,9,20,.3);background:var(--card2)}
+  .info-label{
+    font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--red);margin-bottom:4px;
+  }
+  .info-val{font-size:.88rem;font-weight:500;color:var(--white)}
+
+  /* ═══════════════════════════════════════
+     DOMAINS (skill universes — Tasfiq style)
+  ═══════════════════════════════════════ */
+  #domains{background:var(--black)}
+
+  .domains-intro{
+    max-width:600px;margin-bottom:20px;
+  }
+  .domains-intro p{
+    font-size:.95rem;color:var(--g2);line-height:1.85;
+  }
+
+  .domains-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+    gap:14px;margin-top:48px;
+  }
+
+  .domain-card{
+    background:var(--card);border:1px solid var(--border);border-radius:3px;
+    padding:28px 24px;position:relative;overflow:hidden;
+    transition:border-color .3s,transform .28s,background .28s;cursor:none;
+  }
+  .domain-card::before{
+    content:'';position:absolute;
+    left:0;bottom:0;width:100%;height:2px;
+    background:var(--red);transform:scaleX(0);transform-origin:left;
+    transition:transform .35s ease;
+  }
+  .domain-card:hover{border-color:rgba(229,9,20,.35);background:var(--card2);transform:translateY(-4px)}
+  .domain-card:hover::before{transform:scaleX(1)}
+
+  .domain-num{
+    font-family:var(--display);font-size:2.6rem;letter-spacing:.08em;
+    color:rgba(255,255,255,.04);line-height:1;margin-bottom:14px;
+  }
+
+  .domain-icon{
+    width:34px;height:34px;margin-bottom:14px;
+    background:var(--red-lo);border:1px solid rgba(229,9,20,.2);
+    border-radius:3px;display:flex;align-items:center;justify-content:center;
+  }
+  .domain-icon svg{width:16px;height:16px;fill:var(--red)}
+
+  .domain-name{
+    font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--white);margin-bottom:16px;
+  }
+
+  .domain-pills{display:flex;flex-wrap:wrap;gap:6px}
+  .pill{
+    font-family:var(--mono);font-size:.65rem;letter-spacing:.06em;
+    padding:4px 10px;border:1px solid var(--border2);border-radius:2px;
+    background:rgba(255,255,255,.025);color:var(--g2);
+    transition:border-color .2s,color .2s,background .2s;
+  }
+  .domain-card:hover .pill{
+    border-color:rgba(229,9,20,.18);color:var(--g1);background:rgba(229,9,20,.04);
+  }
+
+  /* ═══════════════════════════════════════
+     PROJECTS — cinematic strip (Tasfiq)
+     + full grid below (Manzum)
+  ═══════════════════════════════════════ */
+  #projects{background:var(--black2);border-top:1px solid var(--border)}
+
+  /* ─ strip */
+  .strip-label{
+    font-family:var(--mono);font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--g3);margin-bottom:16px;display:flex;align-items:center;gap:10px;
+  }
+  .strip-label::after{content:'→ SCROLL';color:var(--red)}
+
+  .strip-wrap{
+    overflow-x:auto;
+    padding-bottom:16px;margin-bottom:72px;
+    scrollbar-width:thin;scrollbar-color:var(--red) var(--black);
+  }
+  .strip-wrap::-webkit-scrollbar{height:3px}
+  .strip-wrap::-webkit-scrollbar-track{background:var(--black2)}
+  .strip-wrap::-webkit-scrollbar-thumb{background:var(--red)}
+
+  .strip{
+    display:flex;gap:16px;
+    width:max-content;
+    padding:4px 2px 4px;
+  }
+
+  .strip-card{
+    width:300px;flex-shrink:0;
+    background:var(--card);border:1px solid var(--border);border-radius:3px;
+    overflow:hidden;
+    transition:border-color .25s,transform .25s,box-shadow .25s;cursor:none;
+  }
+  .strip-card:hover{
+    border-color:rgba(229,9,20,.38);transform:translateY(-5px);
+    box-shadow:0 16px 48px rgba(0,0,0,.55);
+  }
+
+  .strip-thumb{
+    height:155px;background:var(--card2);
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+    position:relative;
+  }
+  .strip-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+  .strip-card:hover .strip-thumb img{transform:scale(1.06)}
+  .strip-thumb-icon{width:42px;height:42px;fill:rgba(229,9,20,.2)}
+
+  .strip-bar{height:2px;background:linear-gradient(90deg,var(--red),rgba(229,9,20,.2));transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+  .strip-card:hover .strip-bar{transform:scaleX(1)}
+
+  .strip-body{padding:18px 18px 14px}
+  .strip-cat{
+    font-family:var(--mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--red);margin-bottom:6px;
+  }
+  .strip-title{
+    font-family:var(--display);font-size:1.35rem;letter-spacing:.05em;
+    color:var(--white);margin-bottom:8px;line-height:1.1;
+    transition:color .2s;
+  }
+  .strip-card:hover .strip-title{color:var(--red)}
+  .strip-url{font-family:var(--mono);font-size:.62rem;color:var(--g3);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-bottom:12px}
+  .strip-foot{
+    display:flex;justify-content:flex-end;padding:12px 18px;
+    border-top:1px solid var(--border);
+  }
+  .strip-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+    color:#fff;background:var(--red);padding:6px 14px;border-radius:2px;
+    transition:background .2s,box-shadow .2s;cursor:none;
+  }
+  .strip-btn:hover{background:var(--red2);box-shadow:0 4px 18px var(--red-lo)}
+  .strip-btn svg{width:10px;height:10px;fill:none;stroke:currentColor;stroke-width:2}
+
+  /* ─ full project grid */
+  .proj-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+  }
+
+  .proj-card{
+    background:var(--card);border:1px solid var(--border);border-radius:3px;
+    display:flex;flex-direction:column;overflow:hidden;
+    transition:border-color .28s,transform .28s,box-shadow .28s;
+    position:relative;
+  }
+  .proj-card::after{
+    content:'';position:absolute;inset:0;
+    background:linear-gradient(135deg,rgba(229,9,20,.03),transparent 60%);
+    opacity:0;transition:opacity .3s;pointer-events:none;
+  }
+  .proj-card:hover{border-color:rgba(229,9,20,.35);transform:translateY(-4px);box-shadow:0 12px 44px rgba(0,0,0,.45)}
+  .proj-card:hover::after{opacity:1}
+
+  .proj-top-bar{height:2.5px;background:linear-gradient(90deg,var(--red),rgba(229,9,20,.15));transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+  .proj-card:hover .proj-top-bar{transform:scaleX(1)}
+
+  .proj-body{padding:22px 20px 18px;flex:1;display:flex;flex-direction:column}
+  .proj-idx{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;color:var(--g3);margin-bottom:8px}
+  .proj-title{
+    font-family:var(--display);font-size:1.3rem;letter-spacing:.05em;
+    color:var(--white);margin-bottom:10px;line-height:1.1;transition:color .2s;
+  }
+  .proj-card:hover .proj-title{color:var(--red)}
+  .proj-desc{font-size:.84rem;color:var(--g2);line-height:1.78;flex:1;margin-bottom:16px}
+  .proj-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:0}
+  .ptag{
+    font-family:var(--mono);font-size:.6rem;letter-spacing:.09em;text-transform:uppercase;
+    padding:3px 9px;border-radius:2px;
+  }
+  .ptag-r{background:var(--red-lo);color:var(--red);border:1px solid rgba(229,9,20,.24)}
+  .ptag-w{background:rgba(255,255,255,.04);color:var(--g1);border:1px solid var(--border)}
+  .ptag-d{background:rgba(255,255,255,.02);color:var(--g3);border:1px solid var(--border2)}
+
+  .proj-foot{
+    padding:14px 20px;border-top:1px solid var(--border);
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .proj-ghost-link{
+    font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--g2);display:inline-flex;align-items:center;gap:5px;
+    transition:color .2s;cursor:none;
+  }
+  .proj-ghost-link svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:1.5;transition:transform .2s}
+  .proj-ghost-link:hover{color:var(--red)}
+  .proj-ghost-link:hover svg{transform:translate(2px,-2px)}
+
+  .proj-cta{
+    display:inline-flex;align-items:center;gap:6px;
+    font-family:var(--mono);font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;
+    color:#fff;background:var(--red);padding:7px 15px;border-radius:2px;
+    transition:background .2s,box-shadow .2s;cursor:none;
+  }
+  .proj-cta:hover{background:var(--red2);box-shadow:0 4px 18px var(--red-lo)}
+  .proj-cta svg{width:11px;height:11px;fill:none;stroke:currentColor;stroke-width:2}
+
+  /* ═══════════════════════════════════════
+     PHILOSOPHY (Tasfiq-inspired)
+  ═══════════════════════════════════════ */
+  #philosophy{
+    background:var(--black);border-top:1px solid var(--border);
+    overflow:hidden;
+  }
+
+  .phil-grid{
+    display:grid;
+    grid-template-columns:1fr 1px 1fr;
+    gap:64px;align-items:center;
+  }
+  .phil-divider{background:var(--border);align-self:stretch}
+
+  .phil-quote{
+    position:relative;padding-left:28px;
+  }
+  .phil-quote::before{
+    content:'';position:absolute;left:0;top:0;bottom:0;
+    width:2.5px;background:var(--red);border-radius:2px;
+  }
+  .phil-quote blockquote{
+    font-family:var(--serif);font-style:italic;
+    font-size:clamp(1.3rem,3vw,2rem);
+    color:var(--white);line-height:1.45;margin-bottom:16px;
+  }
+  .phil-quote cite{
+    font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--g2);font-style:normal;
+  }
+
+  .phil-text .eyebrow{margin-bottom:14px}
+  .phil-text p{
+    font-size:.93rem;color:var(--g2);line-height:1.9;margin-bottom:14px;
+  }
+  .phil-text strong{color:var(--white);font-weight:500}
+
+  /* ═══════════════════════════════════════
+     QUOTE TICKER (Tasfiq hall of quotes)
+  ═══════════════════════════════════════ */
+  #quotes{
+    background:var(--black2);border-top:1px solid var(--border);
+    padding:60px 0;overflow:hidden;
+  }
+  .quotes-label{
+    font-family:var(--mono);font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--g3);text-align:center;margin-bottom:36px;
+  }
+
+  .quote-track{
+    display:flex;gap:0;width:max-content;
+    animation:ticker 30s linear infinite;
+  }
+  .quote-track:hover{animation-play-state:paused}
+  @keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  .q-item{
+    display:flex;align-items:baseline;gap:12px;
+    padding:0 60px;border-right:1px solid var(--border);
+    flex-shrink:0;
+  }
+  .q-item:last-child{border-right:none}
+  .q-open{font-family:var(--serif);font-size:3rem;color:var(--red);line-height:1;align-self:flex-start;margin-top:4px}
+  .q-inner{display:flex;flex-direction:column;gap:4px}
+  .q-text{
+    font-family:var(--serif);font-style:italic;
+    font-size:1rem;color:var(--g1);max-width:320px;line-height:1.55;
+  }
+  .q-author{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--g3)}
+
+  /* ═══════════════════════════════════════
+     CONTACT / FOOTER
+  ═══════════════════════════════════════ */
+  #contact{
+    background:var(--black3);border-top:1px solid var(--border);padding-bottom:0;
+  }
+
+  .contact-intro{
+    font-size:.93rem;color:var(--g2);max-width:520px;
+    margin-bottom:44px;line-height:1.9;
+  }
+  .contact-intro a{color:var(--red);border-bottom:1px solid rgba(229,9,20,.3);transition:border-color .2s}
+  .contact-intro a:hover{border-color:var(--red)}
+
+  .social-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:76px}
+
+  .soc{
+    display:inline-flex;align-items:center;gap:9px;
+    background:var(--card);border:1px solid var(--border);border-radius:2px;
+    padding:11px 20px;font-family:var(--mono);font-size:.7rem;
+    letter-spacing:.11em;text-transform:uppercase;color:var(--g2);
+    transition:border-color .22s,color .22s,background .22s,transform .18s,box-shadow .22s;
+    cursor:none;
+  }
+  .soc:hover{
+    border-color:var(--red);color:var(--red);
+    background:rgba(229,9,20,.05);transform:translateY(-3px);
+    box-shadow:0 6px 24px rgba(229,9,20,.14);
+  }
+  .soc svg{width:13px;height:13px;fill:currentColor;flex-shrink:0}
+
+  .footer-bar{
+    border-top:1px solid var(--border);
+    padding:22px 0;
+    display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  }
+  .footer-copy{
+    font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:var(--g3);
+  }
+  .footer-copy span{color:var(--red)}
+  .footer-top{
+    font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--g3);cursor:none;transition:color .2s;
+  }
+  .footer-top:hover{color:var(--red)}
+
+  /* ═══════════════════════════════════════
+     RESPONSIVE
+  ═══════════════════════════════════════ */
+  @media(max-width:1040px){
+    .proj-grid{grid-template-columns:repeat(2,1fr)}
+    .stats-inner{grid-template-columns:repeat(2,1fr)}
+    .stat:nth-child(2){border-right:none}
+    .stat:nth-child(3){border-top:1px solid var(--border)}
+    .stat:nth-child(4){border-top:1px solid var(--border)}
+  }
+
+  @media(max-width:820px){
+    .nav-links{display:none}
+    .ham{display:flex}
+    .hero-inner{grid-template-columns:1fr}
+    .hero-right{display:none}
+    .about-grid{grid-template-columns:1fr;gap:44px}
+    .phil-grid{grid-template-columns:1fr;gap:44px}
+    .phil-divider{display:none}
+    .ghost{display:none}
+  }
+
+  @media(max-width:640px){
+    section{padding:72px 0}
+    .proj-grid{grid-template-columns:1fr}
+    .stats-inner{grid-template-columns:repeat(2,1fr)}
+    .domains-grid{grid-template-columns:1fr 1fr}
+    .footer-bar{flex-direction:column;align-items:flex-start}
+    #cd,#cr{display:none}
+    body{cursor:auto}
+    .ham,.btn-solid,.btn-outline,.soc,.strip-card,.domain-card,.proj-cta,.strip-btn{cursor:pointer}
+  }
+
+  @media(max-width:440px){
+    .domains-grid{grid-template-columns:1fr}
+    .stats-inner{grid-template-columns:1fr 1fr}
+  }
+  </style>
+</head>
+<body>
+
+<!-- cursor -->
+<div id="cd"></div>
+<div id="cr"></div>
+
+<!-- ══ NAV ══════════════════════════════════ -->
+<nav id="nav">
+  <a href="#hero" class="logo">MANZUM<span class="logo-dot">.</span></a>
+  <ul class="nav-links">
+    <li><a href="#hero"       data-sec="hero">Intro</a></li>
+    <li><a href="#about"      data-sec="about">About</a></li>
+    <li><a href="#domains"    data-sec="domains">Skills</a></li>
+    <li><a href="#projects"   data-sec="projects">Portfolio</a></li>
+    <li><a href="#contact"    data-sec="contact">Contact</a></li>
+  </ul>
+  <button class="ham" id="ham" aria-label="Menu" onclick="toggleDrw()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="drawer" id="drw">
+  <ul>
+    <li><a href="#hero"     onclick="closeDrw()">Intro</a></li>
+    <li><a href="#about"    onclick="closeDrw()">About</a></li>
+    <li><a href="#domains"  onclick="closeDrw()">Skills</a></li>
+    <li><a href="#projects" onclick="closeDrw()">Portfolio</a></li>
+    <li><a href="#contact"  onclick="closeDrw()">Contact</a></li>
+  </ul>
+</div>
+
+<!-- ══ HERO ══════════════════════════════════ -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div class="hero-left">
+
+        <div class="hero-kicker">
+          <span class="pip"></span>
+          Faujdarhat Cadet College &nbsp;·&nbsp; Bangladesh
+        </div>
+
+        <h1 class="hero-name">
+          Manzum
+          <span class="outline">Rahman</span>
+        </h1>
+
+        <p class="hero-tagline">
+          <em>Assalamualaikum</em> — I'm a <strong>Cadet &amp; a Programmer</strong>
+        </p>
+
+        <div class="hero-roles">
+          <span class="role-tag red">Software Engineer</span>
+          <span class="role-tag">Web Developer</span>
+          <span class="role-tag">Game Dev</span>
+          <span class="role-tag">CV Enthusiast</span>
+          <span class="role-tag">AI / ML Learner</span>
+        </div>
+
+        <div class="hero-cta">
+          <a href="#projects" class="btn-solid">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            View Projects
+          </a>
+          <a href="#contact" class="btn-outline">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            Say Hello
+          </a>
+        </div>
+
+        <div class="hero-scroll">
+          <span class="scroll-line"></span>
+          <span class="scroll-txt">Scroll to explore</span>
+        </div>
+
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-img">
+          <!-- Replace src with real photo: <img src="https://manzumrahman.github.io/img/profile.webp" alt="Manzum Rahman"> -->
+          <img src="https://manzumrahman.github.io/img/profile.webp" alt="Manzum Rahman"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+          <svg class="hero-img-placeholder" viewBox="0 0 24 24" style="display:none"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+        </div>
+        <div class="hero-img-frame"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ STATS BAR ══════════════════════════════ -->
+<div id="stats">
+  <div class="wrap">
+    <div class="stats-inner">
+      <div class="stat">
+        <div class="stat-num"><span class="count" data-target="11">0</span><span>+</span></div>
+        <div class="stat-desc">Projects Built</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><span class="count" data-target="5">0</span><span>+</span></div>
+        <div class="stat-desc">Years Coding</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"><span class="count" data-target="5">0</span></div>
+        <div class="stat-desc">Skill Domains</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" style="font-size:clamp(1.2rem,2.5vw,1.8rem);letter-spacing:.02em">Always</div>
+        <div class="stat-desc">Exploring</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="hr"/>
+
+<!-- ══ ABOUT ══════════════════════════════════ -->
+<section id="about">
+  <div class="ghost">01</div>
+  <div class="wrap">
+
+    <div class="eyebrow rv">About Me</div>
+    <h2 class="h2 rv">WHO I <em>AM</em></h2>
+    <p class="sub rv">The person behind the commits.</p>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="rv">
+          Hey — I'm <strong>Md. Manzum Rahman</strong>, a 17-year-old passionate coder
+          and Cadet currently studying in the 11th grade at
+          <strong>Faujdarhat Cadet College, Bangladesh</strong>.
+        </p>
+        <p class="rv">
+          My journey into the world of coding began as a <em>hobby back in the 6th grade</em>,
+          and since then I've been passionately exploring this diverse field. From game development
+          to web development, robotics, and competitive programming — I've delved into
+          various areas of technology. Each experience broadened my understanding and
+          fueled my curiosity.
+        </p>
+        <p class="rv">
+          Recently I've been trying to learn <strong>machine learning</strong> and found it
+          extremely fascinating and full of potential. The idea that systems can learn from
+          data and make intelligent decisions feels borderline magical — and I'm here for it.
+        </p>
+        <p class="rv">
+          Living a disciplined cadet life simultaneously means building under
+          <em>real constraints</em> — time pressure, limited resources, actual deadlines.
+          It makes me a sharper engineer. Precision and persistence are my defaults.
+          Feel free to connect if you share similar interests or want to collaborate!
+        </p>
+      </div>
+
+      <div class="about-right rv" style="transition-delay:.1s">
+        <div class="info-card">
+          <div class="info-label">Status</div>
+          <div class="info-val">Cadet · Grade 11 · FCC</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Location</div>
+          <div class="info-val">Chittagong, Bangladesh</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Started Coding</div>
+          <div class="info-val">Grade 6 — Hobby to Obsession</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Primary Languages</div>
+          <div class="info-val">Python · JavaScript · C</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Currently Exploring</div>
+          <div class="info-val">Machine Learning · Deep Learning</div>
+        </div>
+        <div class="info-card">
+          <div class="info-label">Open To</div>
+          <div class="info-val">Collaboration &amp; Cool Projects</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hr"/>
+
+<!-- ══ DOMAINS / SKILLS ═══════════════════════ -->
+<section id="domains">
+  <div class="ghost">02</div>
+  <div class="wrap">
+
+    <div class="eyebrow rv">Skill Domains</div>
+    <h2 class="h2 rv">WHAT I <em>BUILD</em> WITH</h2>
+
+    <div class="domains-intro rv">
+      <p>Instead of a flat list, each technology domain is treated as its own universe —
+      a space with distinct tools, patterns, and craft. Here's how my stack maps out.</p>
+    </div>
+
+    <div class="domains-grid">
+
+      <div class="domain-card rv">
+        <div class="domain-num">01</div>
+        <div class="domain-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <div class="domain-name">Frontend</div>
+        <div class="domain-pills">
+          <span class="pill">HTML5</span>
+          <span class="pill">CSS3</span>
+          <span class="pill">Bootstrap</span>
+          <span class="pill">React</span>
+          <span class="pill">Responsive</span>
+        </div>
+      </div>
+
+      <div class="domain-card rv" style="transition-delay:.07s">
+        <div class="domain-num">02</div>
+        <div class="domain-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <div class="domain-name">Backend</div>
+        <div class="domain-pills">
+          <span class="pill">Flask</span>
+          <span class="pill">MySQL</span>
+          <span class="pill">PostgreSQL</span>
+          <span class="pill">SQLite</span>
+          <span class="pill">REST APIs</span>
+        </div>
+      </div>
+
+      <div class="domain-card rv" style="transition-delay:.14s">
+        <div class="domain-num">03</div>
+        <div class="domain-icon">
+          <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <div class="domain-name">Languages</div>
+        <div class="domain-pills">
+          <span class="pill">Python</span>
+          <span class="pill">JavaScript</span>
+          <span class="pill">C</span>
+          <span class="pill">C#</span>
+        </div>
+      </div>
+
+      <div class="domain-card rv" style="transition-delay:.21s">
+        <div class="domain-num">04</div>
+        <div class="domain-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 1 0 0 14.14"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41"/></svg>
+        </div>
+        <div class="domain-name">AI / ML</div>
+        <div class="domain-pills">
+          <span class="pill">OpenCV</span>
+          <span class="pill">Computer Vision</span>
+          <span class="pill">Still Exploring 🙂</span>
+        </div>
+      </div>
+
+      <div class="domain-card rv" style="transition-delay:.28s">
+        <div class="domain-num">05</div>
+        <div class="domain-icon">
+          <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+        </div>
+        <div class="domain-name">Tools &amp; Platforms</div>
+        <div class="domain-pills">
+          <span class="pill">PyCharm</span>
+          <span class="pill">VS Code</span>
+          <span class="pill">Git &amp; GitHub</span>
+          <span class="pill">Heroku</span>
+          <span class="pill">Linux</span>
+          <span class="pill">Pygame</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="hr"/>
+
+<!-- ══ PROJECTS ═══════════════════════════════ -->
+<section id="projects">
+  <div class="ghost">03</div>
+  <div class="wrap">
+
+    <div class="eyebrow rv">Selected Work</div>
+    <h2 class="h2 rv">PROJECTS &amp; <em>BUILDS</em></h2>
+    <p class="sub rv">11 projects spanning web, games, computer vision, networking, and GUI tools.</p>
+
+    <!-- ─ cinematic horizontal strip -->
+    <div class="strip-label rv">Featured</div>
+    <div class="strip-wrap rv">
+      <div class="strip">
+
+        <div class="strip-card">
+          <div class="strip-thumb">
+            <img src="https://manzumrahman.github.io/img/work-0.webp" alt="Portfolio"
+                 onerror="this.style.display='none'"/>
+            <svg class="strip-thumb-icon" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <div class="strip-bar"></div>
+          <div class="strip-body">
+            <div class="strip-cat">Web Development</div>
+            <div class="strip-title">My Portfolio</div>
+            <div class="strip-url">manzumrahman.github.io</div>
+          </div>
+          <div class="strip-foot">
+            <a href="https://github.com/manzumrahman/manzumrahman.github.io" target="_blank" class="strip-btn">
+              GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="strip-card">
+          <div class="strip-thumb">
+            <img src="https://manzumrahman.github.io/img/work-2.webp" alt="Listify"
+                 onerror="this.style.display='none'"/>
+            <svg class="strip-thumb-icon" viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div class="strip-bar"></div>
+          <div class="strip-body">
+            <div class="strip-cat">Web Development</div>
+            <div class="strip-title">Listify</div>
+            <div class="strip-url">listify-todo.herokuapp.com</div>
+          </div>
+          <div class="strip-foot">
+            <a href="https://github.com/manzumrahman/Listify" target="_blank" class="strip-btn">
+              GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="strip-card">
+          <div class="strip-thumb">
+            <img src="https://manzumrahman.github.io/img/work-6.webp" alt="Color Detector"
+                 onerror="this.style.display='none'"/>
+            <svg class="strip-thumb-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg>
+          </div>
+          <div class="strip-bar"></div>
+          <div class="strip-body">
+            <div class="strip-cat">Computer Vision</div>
+            <div class="strip-title">Color Detector</div>
+            <div class="strip-url">OpenCV · Python</div>
+          </div>
+          <div class="strip-foot">
+            <a href="https://github.com/manzumrahman/Color-Detector-Using-Open-CV" target="_blank" class="strip-btn">
+              GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="strip-card">
+          <div class="strip-thumb">
+            <img src="https://manzumrahman.github.io/img/work-8.webp" alt="Space Shootout"
+                 onerror="this.style.display='none'"/>
+            <svg class="strip-thumb-icon" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          </div>
+          <div class="strip-bar"></div>
+          <div class="strip-body">
+            <div class="strip-cat">Game Development</div>
+            <div class="strip-title">Space Shootout 2.0</div>
+            <div class="strip-url">Pygame · Python</div>
+          </div>
+          <div class="strip-foot">
+            <a href="https://github.com/manzumrahman/Space-Shootout-2.0/" target="_blank" class="strip-btn">
+              GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="strip-card">
+          <div class="strip-thumb">
+            <img src="https://manzumrahman.github.io/img/work-3.webp" alt="Covid Meter"
+                 onerror="this.style.display='none'"/>
+            <svg class="strip-thumb-icon" viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          </div>
+          <div class="strip-bar"></div>
+          <div class="strip-body">
+            <div class="strip-cat">Web Development</div>
+            <div class="strip-title">Covid Meter</div>
+            <div class="strip-url">manzumrahman.github.io/covid-meter</div>
+          </div>
+          <div class="strip-foot">
+            <a href="https://github.com/manzumrahman/covid-meter" target="_blank" class="strip-btn">
+              GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- duplicate for seamless loop feel -->
+        <div class="strip-card">
+          <div class="strip-thumb">
+            <img src="https://manzumrahman.github.io/img/work-7.webp" alt="TCP Chatroom"
+                 onerror="this.style.display='none'"/>
+            <svg class="strip-thumb-icon" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="strip-bar"></div>
+          <div class="strip-body">
+            <div class="strip-cat">Networking</div>
+            <div class="strip-title">TCP Chatroom</div>
+            <div class="strip-url">Python Sockets · CLI</div>
+          </div>
+          <div class="strip-foot">
+            <a href="https://github.com/manzumrahman/" target="_blank" class="strip-btn">
+              GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─ all projects grid -->
+    <div class="eyebrow rv" style="margin-top:0">All Projects</div>
+    <div class="proj-grid">
+
+      <!-- 1 -->
+      <article class="proj-card rv">
+        <div class="proj-top-bar"></div>
+        <div class="proj-body">
+          <div class="proj-idx">001</div>
+          <h3 class="proj-title">My Portfolio</h3>
+          <p class="proj-desc">Responsive personal portfolio hosted on GitHub Pages. Clean, semantic, and fully hand-coded — this very site is the proof of concept.</p>
+          <div class="proj-tags">
+            <span class="ptag ptag-r">Web Dev</span>
+            <span class="ptag ptag-w">HTML · CSS · JS</span>
+          </div>
+        </div>
+        <div class="proj-foot">
+          <a href="https://manzumrahman.github.io" target="_blank" class="proj-ghost-link">
+            Live
+            <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <a href="https://github.com/manzumrahman/manzumrahman.github.io" target="_blank" class="proj-cta">
+            GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="proj-card rv" style="transition-delay:.05s">
+        <div class="proj-top-bar"></div>
+        <div class="proj-body">
+          <div class="proj-idx">002</div>
+          <h3 class="proj-title">Old Portfolio</h3>
+          <p class="proj-desc">An archived earlier version of the portfolio. Kept live as a milestone marker — shows how much the design thinking has evolved.</p>
+          <div class="proj-tags">
+            <span class="ptag ptag-r">Web Dev</span>
+            <span class="ptag ptag-d">Archived</span>
+          </div>
+        </div>
+        <div class="proj-foot">
+          <a href="https://manzumrahman.github.io/website-old" target="_blank" class="proj-ghost-link">
+            Live <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <a href="https://github.com/manzumrahman/website-old" target="_blank" class="proj-cta">
+            GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="proj-card rv" style="transition-delay:.1s">
+        <div class="proj-top-bar"></div>
+        <div class="proj-body">
+          <div class="proj-idx">003</div>
+          <h3 class="proj-title">Listify</h3>
+          <p class="proj-desc">Full-stack todo list web app built with Flask and SQLite. Create, complete, and delete tasks in a clean interface. Deployed on Heroku.</p>
+          <div class="proj-tags">
+            <span class="ptag ptag-r">Web Dev</span>
+            <span class="ptag ptag-w">Flask · SQLite</span>
+            <span class="ptag ptag-d">Full Stack</span>
+          </div>
+        </div>
+        <div class="proj-foot">
+          <a href="https://listify-todo.herokuapp.com" target="_blank" class="proj-ghost-link">
+            Live <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <a href="https://github.com/manzumrahman/Listify" target="_blank" class="proj-cta">
+            GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="proj-card rv" style="transition-delay:.15s">
+        <div class="proj-top-bar"></div>
+        <div class="proj-body">
+          <div class="proj-idx">004</div>
+          <h3 class="proj-title">Covid Meter</h3>
+          <p class="proj-desc">A data visualization web app fetching live COVID-19 stats via public API. Interactive country-wise breakdowns of cases, deaths, and recoveries.</p>
+          <div class="proj-tags">
+            <span class="ptag ptag-r">Web Dev</span>
+            <span class="ptag ptag-w">JS · API</span>
+            <span class="ptag ptag-d">Data Viz</span>
+          </div>
+        </div>
+        <div class="proj-foot">
+          <a href="https://manzumrahman.github.io/covid-meter/" target="_blank" class="proj-ghost-link">
+            Live <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <a href="https://github.com/manzumrahman/covid-meter" target="_blank" class="proj-cta">
+            GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="proj-card rv" style="transition-delay:.2s">
+        <div class="proj-top-bar"></div>
+        <div class="proj-body">
+          <div class="proj-idx">005</div>
+          <h3 class="proj-title">Tic Tac Toe</h3>
+          <p class="proj-desc">A clean browser-based Tic Tac Toe game with two-player mode, win detection, and animated UI. Built with vanilla HTML, CSS, and JS.</p>
+          <div class="proj-tags">
+            <span class="ptag ptag-r">Web Dev</span>
+            <span class="ptag ptag-w">Vanilla JS</span>
+            <span class="ptag ptag-d">Game</span>
+          </div>
+        </div>
+        <div class="proj-foot">
+          <a href="https://manzumrahman.github.io/tic-tac-toe/" target="_blank" class="proj-ghost-link">
+            Live <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+          <a href="https://github.com/manzumrahman/tic-tac-toe" target="_blank" class="proj-cta">
+            GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 6 -->
+      <article class="proj-card rv" style="transition-delay:.25s">
+        <div class="proj-top-bar"></div>
+        <div class="proj-body">
+          <div class="proj-idx">006</div>
+          <h3 class="proj-title">Flask Blog</h3>
+          <p class="proj-desc">A multi-user blog platform with authentication, post creation, editing, and deletion — built with Flask and a relational database backend.</p>
+          <div class="proj-tags">
+            <span class="ptag ptag-r">Web Dev</span>
+            <span class="ptag ptag-w">Flask · Python</span>
+            <span class="ptag ptag-d">CMS</span>
+          </div>
+        </div>
+        <div class="proj-foot">
+          <span class="proj-ghost-link" style="opacity:.35;cursor:default">No Demo</span>
+          <a href="https://github.com/manzumrahman/Flask-Blog" target="_blank" class="proj-cta">
+            GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 7 -->
+      <article class="proj-card rv" style="transition-delay:.3s">
+        <div class="proj-top-bar"></div>
+        <div class="proj-body">
+          <div class="proj-idx">007</div>
+          <h3 class="proj-title">Color Detector</h3>
+          <p class="proj-desc">Real-time computer vision tool that identifies and labels colors from live webcam input using a CSV color database and OpenCV — runs locally.</p>
+          <div class="proj-tags">
+            <span class="ptag ptag-r">Computer Vision</span>
+            <span class="ptag ptag-w">Python · OpenCV</span>
+          </div>
+        </div>
+        <div class="proj-foot">
+          <span class="proj-ghost-link" style="opacity:.35;cursor:default">Local App</span>
+          <a href="https://github.com/manzumrahman/Color-Detector-Using-Open-CV" target="_blank" class="proj-cta">
+            GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 8 -->
+      <article class="proj-card rv" style="transition-delay:.35s">
+        <div class="proj-top-bar"></div>
+        <div class="proj-body">
+          <div class="proj-idx">008</div>
+          <h3 class="proj-title">TCP Chatroom</h3>
+          <p class="proj-desc">Multi-client terminal chatroom built from scratch with Python's socket and threading libraries. Real-time bi-directional messaging over a local network.</p>
+          <div class="proj-tags">
+            <span class="ptag ptag-r">Networking</span>
+            <span class="ptag ptag-w">Python · Sockets</span>
+            <span class="ptag ptag-d">CLI</span>
+          </div>
+        </div>
+        <div class="proj-foot">
+          <span class="proj-ghost-link" style="opacity:.35;cursor:default">LAN Only</span>
+          <a href="https://github.com/manzumrahman/" target="_blank" class="proj-cta">
+            GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 9 -->
+      <article class="proj-card rv" style="transition-delay:.4s">
+        <div class="proj-top-bar"></div>
+        <div class="proj-body">
+          <div class="proj-idx">009</div>
+          <h3 class="proj-title">Space Shootout 2.0</h3>
+          <p class="proj-desc">Playable 2D arcade space shooter with enemy waves, score tracking, sprite animations, sound effects, and escalating difficulty — all in Pygame.</p>
+          <div class="proj-tags">
+            <span class="ptag ptag-r">Game Dev</span>
+            <span class="ptag ptag-w">Python · Pygame</span>
+          </div>
+        </div>
+        <div class="proj-foot">
+          <span class="proj-ghost-link" style="opacity:.35;cursor:default">Desktop</span>
+          <a href="https://github.com/manzumrahman/Space-Shootout-2.0/" target="_blank" class="proj-cta">
+            GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 10 -->
+      <article class="proj-card rv" style="transition-delay:.45s">
+        <div class="proj-top-bar"></div>
+        <div class="proj-body">
+          <div class="proj-idx">010</div>
+          <h3 class="proj-title">Platformer</h3>
+          <p class="proj-desc">A side-scrolling 2D platformer game with gravity, collision detection, and multi-level progression. Proof that Python can run real game loops.</p>
+          <div class="proj-tags">
+            <span class="ptag ptag-r">Game Dev</span>
+            <span class="ptag ptag-w">Python · Pygame</span>
+          </div>
+        </div>
+        <div class="proj-foot">
+          <span class="proj-ghost-link" style="opacity:.35;cursor:default">Desktop</span>
+          <a href="https://github.com/manzumrahman/" target="_blank" class="proj-cta">
+            GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- 11 -->
+      <article class="proj-card rv" style="transition-delay:.5s">
+        <div class="proj-top-bar"></div>
+        <div class="proj-body">
+          <div class="proj-idx">011</div>
+          <h3 class="proj-title">GUI Calculator</h3>
+          <p class="proj-desc">A feature-complete desktop calculator with a graphical Tkinter UI. Supports arithmetic operations, keyboard input, and a clean display panel.</p>
+          <div class="proj-tags">
+            <span class="ptag ptag-r">GUI</span>
+            <span class="ptag ptag-w">Python · Tkinter</span>
+          </div>
+        </div>
+        <div class="proj-foot">
+          <span class="proj-ghost-link" style="opacity:.35;cursor:default">Desktop</span>
+          <a href="https://github.com/manzumrahman/GUI-Calculator" target="_blank" class="proj-cta">
+            GitHub <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<hr class="hr"/>
+
+<!-- ══ PHILOSOPHY ════════════════════════════ -->
+<section id="philosophy">
+  <div class="ghost">04</div>
+  <div class="wrap">
+
+    <div class="eyebrow rv">Philosophy</div>
+    <h2 class="h2 rv" style="margin-bottom:48px">HOW I <em>THINK</em></h2>
+
+    <div class="phil-grid">
+      <div class="phil-quote rv">
+        <blockquote>
+          "Each domain of code is a universe with its own rules — mastering one teaches you how to learn the next."
+        </blockquote>
+        <cite>— The Cadet's Approach</cite>
+      </div>
+
+      <div class="phil-divider"></div>
+
+      <div class="phil-text rv" style="transition-delay:.08s">
+        <p>
+          I think of every skill I pick up as its own <strong>separate universe</strong> — web,
+          games, networking, vision, ML. Each has distinct tools, distinct failure modes, and its
+          own kind of satisfaction when something clicks.
+        </p>
+        <p>
+          The discipline of cadet life feeds directly into this: building under <strong>real
+          constraints</strong>, shipping despite imperfect conditions, and iterating relentlessly.
+          I care less about polished outcomes and more about whether a project asks a real question:
+          <em>What if? How else? Can this be simpler?</em>
+        </p>
+        <p>
+          This portfolio is a snapshot of those questions — in motion, incomplete, and still growing.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ QUOTES TICKER ═════════════════════════ -->
+<div id="quotes">
+  <div class="quotes-label">Hall of Quotes</div>
+  <div style="overflow:hidden">
+    <div class="quote-track">
+      <!-- set 1 -->
+      <div class="q-item">
+        <span class="q-open">"</span>
+        <div class="q-inner">
+          <p class="q-text">The best error message is the one that never shows up.</p>
+          <span class="q-author">— Thomas Fuchs</span>
+        </div>
+      </div>
+      <div class="q-item">
+        <span class="q-open">"</span>
+        <div class="q-inner">
+          <p class="q-text">Programs must be written for people to read, and only incidentally for machines to execute.</p>
+          <span class="q-author">— Harold Abelson</span>
+        </div>
+      </div>
+      <div class="q-item">
+        <span class="q-open">"</span>
+        <div class="q-inner">
+          <p class="q-text">Make it work, make it right, make it fast.</p>
+          <span class="q-author">— Kent Beck</span>
+        </div>
+      </div>
+      <div class="q-item">
+        <span class="q-open">"</span>
+        <div class="q-inner">
+          <p class="q-text">The unexamined life is not worth living — but the examined one isn't that great either.</p>
+          <span class="q-author">— Socrates (updated)</span>
+        </div>
+      </div>
+      <div class="q-item">
+        <span class="q-open">"</span>
+        <div class="q-inner">
+          <p class="q-text">First, solve the problem. Then, write the code.</p>
+          <span class="q-author">— John Johnson</span>
+        </div>
+      </div>
+      <!-- set 2 (duplicate for seamless scroll) -->
+      <div class="q-item">
+        <span class="q-open">"</span>
+        <div class="q-inner">
+          <p class="q-text">The best error message is the one that never shows up.</p>
+          <span class="q-author">— Thomas Fuchs</span>
+        </div>
+      </div>
+      <div class="q-item">
+        <span class="q-open">"</span>
+        <div class="q-inner">
+          <p class="q-text">Programs must be written for people to read, and only incidentally for machines to execute.</p>
+          <span class="q-author">— Harold Abelson</span>
+        </div>
+      </div>
+      <div class="q-item">
+        <span class="q-open">"</span>
+        <div class="q-inner">
+          <p class="q-text">Make it work, make it right, make it fast.</p>
+          <span class="q-author">— Kent Beck</span>
+        </div>
+      </div>
+      <div class="q-item">
+        <span class="q-open">"</span>
+        <div class="q-inner">
+          <p class="q-text">The unexamined life is not worth living — but the examined one isn't that great either.</p>
+          <span class="q-author">— Socrates (updated)</span>
+        </div>
+      </div>
+      <div class="q-item">
+        <span class="q-open">"</span>
+        <div class="q-inner">
+          <p class="q-text">First, solve the problem. Then, write the code.</p>
+          <span class="q-author">— John Johnson</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="hr"/>
+
+<!-- ══ CONTACT ═══════════════════════════════ -->
+<section id="contact">
+  <div class="ghost">05</div>
+  <div class="wrap">
+
+    <div class="eyebrow rv">Get in Touch</div>
+    <h2 class="h2 rv">LET'S <em>CONNECT</em></h2>
+    <p class="sub rv">Whether it's a project, collab, or just a hello — I'm one message away.</p>
+
+    <p class="contact-intro rv">
+      I'm always open to interesting conversations, meaningful projects, and new connections.
+      You can also find my writing at
+      <a href="https://dev.to/manzumrahman" target="_blank">Dev.to</a>.
+      Pick a channel below and reach out!
+    </p>
+
+    <div class="social-row rv">
+      <a href="https://github.com/manzumrahman" target="_blank" class="soc">
+        <svg viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+      <a href="#" class="soc">
+        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <a href="mailto:someone@example.com" class="soc">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        E-Mail
+      </a>
+      <a href="https://www.facebook.com/manzum.rahman.5/" target="_blank" class="soc">
+        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        Facebook
+      </a>
+      <a href="https://www.instagram.com/manzum__rahman/" target="_blank" class="soc">
+        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor"/></svg>
+        Instagram
+      </a>
+      <a href="https://x.com/manzumrahman" target="_blank" class="soc">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        X.com
+      </a>
+      <a href="https://dev.to/manzumrahman" target="_blank" class="soc">
+        <svg viewBox="0 0 24 24"><path d="M7.826 10.083a.784.784 0 0 0-.468-.175h-.701v4.198h.701a.786.786 0 0 0 .469-.175c.155-.117.233-.292.233-.525v-2.798c.001-.233-.079-.408-.234-.525zM19.236 3H4.764C3.791 3 3.002 3.787 3 4.76v14.48C3.002 20.213 3.791 21 4.764 21h14.473c.973 0 1.762-.787 1.764-1.76V4.76A1.765 1.765 0 0 0 19.236 3z"/></svg>
+        Dev.to
+      </a>
+    </div>
+
+    <div class="footer-bar rv">
+      <p class="footer-copy">
+        © 2025 Manzum Rahman. Made with <span>♥</span> in Bangladesh.
+      </p>
+      <span class="footer-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        ↑ Back to top
+      </span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ JS ════════════════════════════════════ -->
+<script>
+  /* cursor */
+  const cd=document.getElementById('cd'),cr=document.getElementById('cr');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+  (function loop(){
+    cd.style.cssText=`left:${mx}px;top:${my}px`;
+    rx+=(mx-rx)*.13; ry+=(my-ry)*.13;
+    cr.style.cssText=`left:${rx}px;top:${ry}px`;
+    requestAnimationFrame(loop);
+  })();
+  document.querySelectorAll('a,button,[onclick]').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-grow'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-grow'));
+  });
+
+  /* mobile drawer */
+  function toggleDrw(){
+    const d=document.getElementById('drw'),h=document.getElementById('ham');
+    d.classList.toggle('open'); h.classList.toggle('open');
+  }
+  function closeDrw(){
+    document.getElementById('drw').classList.remove('open');
+    document.getElementById('ham').classList.remove('open');
+  }
+  document.addEventListener('click',e=>{
+    const d=document.getElementById('drw'),h=document.getElementById('ham');
+    if(d.classList.contains('open')&&!d.contains(e.target)&&!h.contains(e.target))closeDrw();
+  });
+
+  /* scroll reveal */
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')});
+  },{threshold:.07});
+  document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+
+  /* active nav */
+  const secs=document.querySelectorAll('section[id]');
+  const navAs=document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll',()=>{
+    let cur='';
+    secs.forEach(s=>{if(window.scrollY>=s.offsetTop-130)cur=s.id});
+    navAs.forEach(a=>{
+      const active=a.getAttribute('href')==='#'+cur;
+      a.classList.toggle('active',active);
+    });
+    document.getElementById('nav').classList.toggle('scrolled',window.scrollY>40);
+  },{passive:true});
+
+  /* counter animation */
+  function animCount(el){
+    const target=+el.dataset.target;
+    const dur=1400;const step=dur/target;
+    let cur=0;
+    const t=setInterval(()=>{
+      cur++;el.textContent=cur;
+      if(cur>=target)clearInterval(t);
+    },step<16?16:step);
+  }
+  const cobs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){animCount(e.target);cobs.unobserve(e.target)}
+    });
+  },{threshold:.5});
+  document.querySelectorAll('.count').forEach(el=>cobs.observe(el));
+</script>
+</body>
+</html>
+HTMLEOF
